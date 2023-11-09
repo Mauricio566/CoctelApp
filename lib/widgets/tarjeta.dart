@@ -8,14 +8,14 @@ class Tarjeta extends StatelessWidget {
   const Tarjeta({
     super.key,
     required this.cocktail,
-    required this.favoriteprovider,
+    //required this.favoriteprovider,
     required this.tarjeta,
     required this.tarjetaId,
 
   });
 
   final Cocktail cocktail;
-  final FavoriteProvider favoriteprovider;
+  //final FavoriteProvider favoriteprovider;
   final Cocktail tarjeta;
   final int tarjetaId;
 

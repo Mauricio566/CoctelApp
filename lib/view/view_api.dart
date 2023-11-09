@@ -113,24 +113,76 @@ class ViewApi extends StatelessWidget {
                                   color: Colors.grey[900],
                                   fontSize: textSize2,
                                   fontWeight: FontWeight.bold)),
+                                
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
-              //parametros con nombre(recibe una instancia del provider)
-              //FutureWidget(cocktailProvider: cocktailProvider),
             ),
-            FutureWidget(cocktailProvider: cocktailProvider),
+            SizedBox(height: 30,),
+            FutureBuilder(
+                //El futuro que se debe esperar.
+                future: cocktailProvider
+                    .fetchCocktails(), //esta es una llamada a una función que devuelve un futuro
+                //El constructor de FutureBuilder espera a que este futuro se complete y proporciona los datos.
+                //FutureBuilder automáticamente reconstruirá su interfaz de usuario cuando
+                //cambie el estado del futuro.
+                builder: (context, snapshot) {
+                  //snapshot es un objeto que contiene informacion del estado actual del futuro
+                  if (snapshot.hasError) {
+                    return Center(child: Text('Error: ${snapshot.error}'));
+                  } else {
+                    return Expanded(
+                      child: GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            //espacio horizontal entre cards
+                            crossAxisSpacing: 10,
+                            //espacio vertical entre cards
+                            mainAxisSpacing: 10,
+                          ),
+                          itemCount: cocktailProvider.cocktails
+                              .length, //numero de tarjetas en base a la longitud de la lista de cocktails
+                          itemBuilder: (context, index) {
+                            //accedemos a un elemento especifico en la lista. index es una variable que representa la posición del elemento en la lista que queremos acceder.
+                            /*esta variable contiene el cocktail en la posición específica indicada por el valor de index.
+                                   Dependiendo de cuál sea el valor de index,*/
+                            final cocktail = cocktailProvider.cocktails[index];
+                            //print("nombre ...${cocktail.name}");
+                            //print("linea que no entendi $cocktail");
+                            return Tarjeta(
+                                tarjeta: cocktailProvider.cocktails[index],
+                                tarjetaId: index,
+                                cocktail: cocktail,
+                                //favoriteprovider: favoriteprovider
+                                );
+                          }),
+                    );
+                  }
+                }),
           ],
         ),
       ),
     );
   }
-}
+}       
 
-class FutureWidget extends StatelessWidget {
+      
+
+      //itemCount: cocktailProvider.cocktails.length,
+      //itemBuilder: (context, index) {
+      //final cocktail = cocktailProvider.cocktails[index];
+      /*return ListTile(
+      leading: Image.network(cocktail.thumbnailUrl),
+      title: Text(cocktail.name),*/
+    
+                
+                    
+
+/*class FutureWidget extends StatelessWidget {
   const FutureWidget({
     super.key,
     required this.cocktailProvider,
@@ -141,19 +193,23 @@ class FutureWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      //El futuro que se debe esperar.
-        future: cocktailProvider.fetchCocktails(),//esta es una llamada a una función que devuelve un futuro
+        //El futuro que se debe esperar.
+        future: cocktailProvider
+            .fetchCocktails(), //esta es una llamada a una función que devuelve un futuro
 //El constructor de FutureBuilder espera a que este futuro se complete y proporciona los datos.
-//FutureBuilder automáticamente reconstruirá su interfaz de usuario cuando 
-//cambie el estado del futuro.        
-        builder: (context, snapshot) {//snapshot es un objeto que contiene informacion del estado actual del futuro
+//FutureBuilder automáticamente reconstruirá su interfaz de usuario cuando
+//cambie el estado del futuro.
+        builder: (context, snapshot) {
+          //snapshot es un objeto que contiene informacion del estado actual del futuro
           if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else {
             return Expanded(
                 child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-              child: Gridview(cocktailProvider: cocktailProvider),//pasamos instancia como argumento
+              child: Gridview(
+                  cocktailProvider:
+                      cocktailProvider), //pasamos instancia como argumento
             ));
           }
         });
@@ -179,7 +235,8 @@ class Gridview extends StatelessWidget {
         //espacio vertical entre cards
         mainAxisSpacing: 10,
       ),
-      itemCount: cocktailProvider.cocktails.length,//numero de tarjetas en base a la longitud de la lista de cocktails
+      itemCount: cocktailProvider.cocktails
+          .length, //numero de tarjetas en base a la longitud de la lista de cocktails
       itemBuilder: (context, index) {
         //accedemos a un elemento especifico en la lista. index es una variable que representa la posición del elemento en la lista que queremos acceder.
         /*esta variable contiene el cocktail en la posición específica indicada por el valor de index.
@@ -187,8 +244,11 @@ class Gridview extends StatelessWidget {
         final cocktail = cocktailProvider.cocktails[index];
         //print("nombre ...${cocktail.name}");
         //print("linea que no entendi $cocktail");
-        return Tarjeta(tarjeta: cocktailProvider.cocktails[index], tarjetaId: index,
-          cocktail: cocktail, favoriteprovider: favoriteprovider);
+        return Tarjeta(
+            tarjeta: cocktailProvider.cocktails[index],
+            tarjetaId: index,
+            cocktail: cocktail,
+            favoriteprovider: favoriteprovider);
       },
 
       //itemCount: cocktailProvider.cocktails.length,
@@ -214,3 +274,4 @@ En Flutter, un "futuro" representa un valor que puede estar disponible
 
             
           }*/
+*/

@@ -4,23 +4,10 @@ import 'package:flutter/material.dart';
 class FavoriteProvider extends ChangeNotifier {
   //se inicializa el valor
   bool _isfavorite = false;
-  //Map<int ,bool> _esfavorito = {};
-
-  /*bool getisFavorite(int tarjetaId){
-    return _esfavorito[tarjetaId] ??
-    false;
-  } */
-
-  /*oid toggleFavorito(int tarjetaId){
-    _esfavorito[tarjetaId] = !
-    _esfavorito[tarjetaId] !;
-    notifyListeners();
-  }*/
-
-//devuelve el valor de mi estado actual
+ 
   bool get isFavorite => _isfavorite; 
 
-  FavoriteProvider() {}
+  //FavoriteProvider() {}
 
 
 // ignore: non_constant_identifier_names

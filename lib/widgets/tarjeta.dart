@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../model/model.dart';
@@ -79,4 +79,4 @@ class Tarjeta extends StatelessWidget {
       
     
   }
-}
+}*/

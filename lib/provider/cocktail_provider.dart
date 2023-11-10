@@ -5,44 +5,28 @@
  estado de la lista de cócteles (_cocktails) y notificar a los
   widgets interesados sobre cambios en los datos.*/
 import 'package:flutter/material.dart';
-
+import 'package:http/http.dart' as http;
 import '../model/model.dart';
 import '../service/service.dart';
 
+//'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Gin'
 class CocktailProvider extends ChangeNotifier {
-  //se utiliza para interactuar con la API y obtener datos de cócteles.
-  final CocktailService cocktailService;
-// contendrá objetos de la clase Cocktail
-  List<Cocktail> _cocktails = [];
+  String _baseUrl =
+      "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Gin";
 
-  //String coctel = _cocktails[0].name;
-  List<Cocktail> get cocktails => _cocktails;
+  List<Drink> cocktails = [];
 
-  //un constructor que toma una instancia de CocktailService como
-  //parámetro y la asigna a cocktailService.
-  CocktailProvider(this.cocktailService);
+  CocktailProvider() {
+    print("provider inicializado");
+    DisplayCocteles();
+  }
 
-  Future<void> fetchCocktails() async {
-//se intenta obtener la lista de cocteles    
-    try {
-      _cocktails = await cocktailService.fetchCocktails();
-      //print(_cocktails);
-      //print(_cocktails[0].name.length);
-      notifyListeners();
-      /*for (var cocktail in _cocktails) {
-      print(cocktail.name[0]); // Esto imprimirá cada objeto de bebida en la lista
-}*/
-      
-//notifica a los widgets que esten escuchando      
-      
-    } catch (e) {
-      print('Error fetching cocktails: $e');
-    }
+  DisplayCocteles() async {
+     final response = await http.get(Uri.parse(_baseUrl));
+    final mapeado = saveRequestModelFromJson(response.body);
+    cocktails = mapeado.drinks;
+    print("respuesta ya preparada :)...${cocktails[0].strDrink}");
+    notifyListeners();
+
   }
 }
-/*En resumen, CocktailProvider actúa como un intermediario entre la API
- (representada por CocktailService) y los widgets de la aplicación que 
- necesitan acceder y mostrar la lista de cócteles. Cuando la lista de cócteles
-  cambia (después de obtenerla de la API), CocktailProvider notifica
-   a los widgets interesados para que actualicen su interfaz 
-   de usuario en consecuencia.*/

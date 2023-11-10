@@ -3,7 +3,7 @@ la respuesta JSON contiene una lista de objetos. Esta línea extrae
  la lista de objetos del mapa data y la almacena en la variable drinks,
   lo que permite acceder y trabajar con cada uno de los objetos 
   contenidos en la lista.*/
-import 'dart:convert';
+/*import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 
@@ -48,7 +48,7 @@ class CocktailService {
       return drinks.map((json) => Cocktail.fromJson(json)).toList();*/
       //y la convierte en un objeto de tipo Cocktail
 
-      /*final Map<String, dynamic> data = json.decode(response.body);
+      final Map<String, dynamic> data = json.decode(response.body);
       print("mapa de datos : $data");
       //Este método mapea los datos del mapa a las propiedades de un objeto Cocktail.
       return Cocktail.fromJson(data);*/
